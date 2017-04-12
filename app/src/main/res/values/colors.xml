@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2592D9</color>
+    <color name="colorPrimaryDark">#216d96</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="portage">#5775ce</color>
+    <color name="royal_blue">#5f50ab</color>
+    <color name="blue_er">#6fa7ca</color>
+</resources>

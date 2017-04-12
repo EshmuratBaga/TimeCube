@@ -1,0 +1,12 @@
+package cube.time.com.timecube.screen.reg;
+
+import cube.time.com.timecube.screen.login.LoginView;
+
+/**
+ * Created by Andrey on 4/12/2017.
+ */
+
+public interface SignUpView extends LoginView{
+
+    void initWidget();
+}
