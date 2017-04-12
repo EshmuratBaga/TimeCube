@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import cube.time.com.timecube.R;
 import cube.time.com.timecube.screen.reg.SignUpActivity;
+import cube.time.com.timecube.screen.settings_cube.CubeSettingsActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView,View.OnClickListener{
     private Button btnLogin;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
         btnLogin = (Button) findViewById(R.id.btn_sign_in);
         txtSignUp = (TextView) findViewById(R.id.txt_login_sign_up);
 
+        btnLogin.setOnClickListener(this);
         txtSignUp.setOnClickListener(this);
     }
 
@@ -44,6 +46,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
         switch (v.getId()){
             case R.id.txt_login_sign_up:
                 startActivity(new Intent(this, SignUpActivity.class));
+                break;
+            case R.id.btn_sign_in:
+                startActivity(new Intent(this, CubeSettingsActivity.class));
                 break;
         }
     }
