@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\work\\MyProjects\\BlueSTSDK_Android-master\\BlueSTSDK\\build\\intermediates\\res\\merged\\debug\\menu\\menu_log_feature.xml",
+        "source": "C:\\work\\MyProjects\\BlueSTSDK_Android-master\\BlueSTSDK\\src\\main\\res\\menu\\menu_log_feature.xml"
+    },
+    {
+        "merged": "C:\\work\\MyProjects\\TimeCube\\BlueSTSDK\\build\\intermediates\\res\\merged\\debug\\menu\\menu_log_feature.xml",
+        "source": "C:\\work\\MyProjects\\TimeCube\\BlueSTSDK\\src\\main\\res\\menu\\menu_log_feature.xml"
+    }
+]
