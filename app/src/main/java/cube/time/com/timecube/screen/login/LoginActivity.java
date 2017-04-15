@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import cube.time.com.timecube.R;
 import cube.time.com.timecube.screen.reg.SignUpActivity;
+import cube.time.com.timecube.screen.scan.ScanActivity;
 import cube.time.com.timecube.screen.settings_cube.CubeSettingsActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView,View.OnClickListener{
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
                 startActivity(new Intent(this, SignUpActivity.class));
                 break;
             case R.id.btn_sign_in:
-                startActivity(new Intent(this, CubeSettingsActivity.class));
+                startActivity(new Intent(this, ScanActivity.class));
                 break;
         }
     }

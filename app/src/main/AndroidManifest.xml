@@ -3,6 +3,7 @@
     package="cube.time.com.timecube">
 
     <application
+        android:name=".utils.TimeCubeApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +27,14 @@
         <activity
             android:name=".screen.settings_cube.CubeSettingsActivity"
             android:label="@string/title_activity_cube_settings"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".screen.scan.ScanActivity"
+            android:label="@string/title_activity_scan_activity" />
+        <activity
+            android:name=".screen.main.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

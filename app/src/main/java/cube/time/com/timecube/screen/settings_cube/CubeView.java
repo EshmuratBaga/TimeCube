@@ -11,4 +11,10 @@ public interface CubeView extends LoginView{
     void initWidget();
 
     void showDialog();
+
+    void populateFeatureList();
+
+    void showAddTaskDialog(int sum);
+
+    void openMainActivity();
 }

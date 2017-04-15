@@ -9,4 +9,13 @@
     <string name="password">Password</string>
     <string name="sign_up">sign up</string>
     <string name="title_activity_cube_settings">CubeSettingsActivity</string>
+    <string name="title_activity_scan_activity">ScanActivity</string>
+    <string name="startScanMenu">start</string>
+    <string name="StopScanMenu">stop</string>
+    <string name="progressDialogConnMsgDeadNodeError">Error during the connection with the node %s</string>
+    <string name="progressDialogConnMsgUnreachableNodeError">Node %s is unreachable</string>
+    <string name="progressDialogConnMsgLostNodeError">Lost connection with the node %s</string>
+    <string name="progressDialogConnTitle">Connecting..</string>
+    <string name="progressDialogConnMsg">Connecting with: %s</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
