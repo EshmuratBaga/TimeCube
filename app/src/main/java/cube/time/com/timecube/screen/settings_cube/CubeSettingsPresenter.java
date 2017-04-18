@@ -44,7 +44,7 @@ public class CubeSettingsPresenter {
         realm = Realm.getDefaultInstance();
         RealmResults<CubeSide> sides = realm.where(CubeSide.class).findAll();
         if (sides.size() != 0){
-
+            view.openMainActivity();
         }
     }
 }

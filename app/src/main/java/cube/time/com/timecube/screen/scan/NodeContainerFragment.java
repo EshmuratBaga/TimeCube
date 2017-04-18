@@ -27,9 +27,9 @@
 package cube.time.com.timecube.screen.scan;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.st.BlueSTSDK.Manager;

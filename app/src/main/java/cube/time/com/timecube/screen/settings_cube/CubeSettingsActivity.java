@@ -23,6 +23,8 @@ import java.util.List;
 
 import cube.time.com.timecube.R;
 import cube.time.com.timecube.model.CubeSide;
+import cube.time.com.timecube.screen.bottom.TimeActivity;
+import cube.time.com.timecube.screen.main.MainActivity;
 import cube.time.com.timecube.screen.scan.NodeContainerFragment;
 import cube.time.com.timecube.utils.dialog.LoadingDialog;
 import cube.time.com.timecube.utils.dialog.LoadingView;
@@ -42,6 +44,9 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
     private final static String NODE_TAG = CubeSettingsActivity.class.getCanonicalName() + "" +
             ".NODE_TAG";
 
+    private final static String MAIN_TO_SET = CubeSettingsActivity.class.getCanonicalName() + "" +
+            ".MAIN_TO_SET";
+
     /**
      * node that will stream the data
      */
@@ -53,45 +58,42 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
      */
     private NodeContainerFragment mNodeContainer;
 
+    /**
+     * listener that will update the displayed feature data
+     */
+    private Feature.FeatureListener mGenericUpdate;
+
     private Feature selectedFeature;
 
     private String nodeTag;
-
+    private String isMain;
     private CubeSettingsPresenter presenter;
     private LifecycleHandler lifecycleHandler;
-    private LoadingView loadingView;
 
+    private LoadingView loadingView;
     private RadioGroup rgrType;
     private RadioButton rBtnCube;
     private RadioButton rBtnOkta;
+
     private RadioButton rBtnDode;
 
     private int curent = 0;
 
     private boolean px = false,py = false,pz = false;
-
     private double dx, dy, dz;
     private double ax = 2000, ay = 2000, az = 2000;
     private double dt = 1;
-    private int sx = 0,sy = 0,sz = 0;
 
+    private int sx = 0,sy = 0,sz = 0;
     /**
             * listener that will be used for enable the notification when the node is connected
      */
-    private Node.NodeStateListener mNodeStatusListener = new Node.NodeStateListener() {
-        @Override
-        public void onStateChange(final Node node, Node.State newState, Node.State prevState) {
-            if (newState == Node.State.Connected) {
-                CubeSettingsActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        populateFeatureList();
-//                        invalidateOptionsMenu(); //enable/disable the settings options
-                    }//run
-                });
-            }//if
-        }//onStateChange
+    private Node.NodeStateListener mNodeStatusListener = (node, newState, prevState) -> {
+        if (newState == Node.State.Connected) {
+            CubeSettingsActivity.this.runOnUiThread(this::populateFeatureList);
+        }
     };
+
     @Override
     public void populateFeatureList() {
         if (mNode != null) {
@@ -107,10 +109,8 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
 
                         selectedFeature.removeFeatureListener(mGenericUpdate);
                         mNode.disableNotification(selectedFeature);
-                        Log.d("dddd","close" + selectedFeature.getName());
                     } else {
                         //create a listener that will update the selected view
-                        Log.d("dddd", "open" + selectedFeature.getName());
                         View view = null;
                         mGenericUpdate = new GenericFragmentUpdate((TextView) view);
                         selectedFeature.addFeatureListener(mGenericUpdate);
@@ -129,17 +129,20 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
         AddTaskDialog.newInstance(sum).show(getSupportFragmentManager(),"filterdate");
     }
 
-    /**
-     * listener that will update the displayed feature data
-     */
-    private Feature.FeatureListener mGenericUpdate;
-
     public static Intent getStartIntent(Context c, @NonNull Node node) {
         Intent i = new Intent(c, CubeSettingsActivity.class);
         i.putExtra(NODE_TAG, node.getTag());
         i.putExtras(NodeContainerFragment.prepareArguments(node));
         return i;
-    }//getStartIntent
+    }
+
+    public static Intent openCubeSetting(Context c, @NonNull Node node) {
+        Intent i = new Intent(c, CubeSettingsActivity.class);
+        i.putExtra(NODE_TAG, node.getTag());
+        i.putExtra(MAIN_TO_SET,"isMain");
+        i.putExtras(NodeContainerFragment.prepareArguments(node));
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,22 +151,20 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initWidget();
-
         nodeTag = getIntent().getStringExtra(NODE_TAG);
         mNode = Manager.getSharedInstance().getNodeWithTag(nodeTag);
-
+        isMain = getIntent().getStringExtra(MAIN_TO_SET);
+        initWidget();
         //create or recover the NodeContainerFragment
         if (savedInstanceState == null) {
             Intent i = getIntent();
             mNodeContainer = new NodeContainerFragment();
             mNodeContainer.setArguments(i.getExtras());
 
-            getFragmentManager().beginTransaction().add(mNodeContainer, NODE_FRAGMENT).commit();
+            getSupportFragmentManager().beginTransaction().add(mNodeContainer, NODE_FRAGMENT).commit();
 
         } else {
-            mNodeContainer = (NodeContainerFragment) getFragmentManager()
-                    .findFragmentByTag(NODE_FRAGMENT);
+            mNodeContainer = (NodeContainerFragment) getSupportFragmentManager().findFragmentByTag(NODE_FRAGMENT);
         }//if-else
 
     }
@@ -174,7 +175,10 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
         lifecycleHandler = LoaderLifecycleHandler.create(this,getSupportLoaderManager());
         presenter = new CubeSettingsPresenter(lifecycleHandler,this);
 
-        presenter.checkDataCubeSide();
+        if (getIntent().getStringExtra(MAIN_TO_SET) == null){
+            Log.d("dddd","" + 123);
+            presenter.checkDataCubeSide();
+        }
 
         rgrType = (RadioGroup) findViewById(R.id.r_btn_group_type);
         rBtnCube = (RadioButton) findViewById(R.id.rbtn_cube);
@@ -188,7 +192,9 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
 
     @Override
     public void openMainActivity() {
-
+        Intent intent = MainActivity.getStartIntent(this,mNode);
+        startActivity(intent);
+        finish();
     }
 
     @Override

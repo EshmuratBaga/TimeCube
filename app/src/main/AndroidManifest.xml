@@ -34,6 +34,13 @@
         <activity
             android:name=".screen.main.MainActivity"
             android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".screen.bottom.TimeActivity"
+            android:label="@string/title_activity_time" />
+        <activity
+            android:name=".screen.statistic.StatisticActivity"
+            android:label="@string/title_activity_statistic"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

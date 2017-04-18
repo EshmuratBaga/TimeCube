@@ -17,5 +17,15 @@
     <string name="progressDialogConnMsgLostNodeError">Lost connection with the node %s</string>
     <string name="progressDialogConnTitle">Connecting..</string>
     <string name="progressDialogConnMsg">Connecting with: %s</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">TimeCube</string>
+    <string name="setting">Setting</string>
+    <string name="title_activity_time">TimeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="statistic">Statistic</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
 </resources>

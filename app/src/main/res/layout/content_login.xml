@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Sign in with email"
                 android:textColorHint="@color/blue_er"
-                android:theme="@style/MyEditTextTheme"
-                android:layout_marginBottom="50dp"/>
+                android:theme="@style/MyEditTextTheme"/>
 
         </cube.time.com.timecube.utils.CustomTextInputLayout>
 

@@ -217,6 +217,9 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
             return;
 
         Intent i = CubeSettingsActivity.getStartIntent(this, n);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
         startActivity(i);
     }//onItemClick
 
