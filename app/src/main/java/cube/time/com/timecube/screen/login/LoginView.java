@@ -8,4 +8,5 @@ import cube.time.com.timecube.utils.dialog.LoadingView;
 
 public interface LoginView extends LoadingView{
     void initWidget();
+    void openScanActivity();
 }

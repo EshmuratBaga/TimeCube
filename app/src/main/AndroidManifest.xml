@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cube.time.com.timecube">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".utils.TimeCubeApp"
         android:allowBackup="true"
@@ -16,7 +18,6 @@
             android:theme="@style/AppTheme.LoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -41,7 +42,8 @@
         <activity
             android:name=".screen.statistic.StatisticActivity"
             android:label="@string/title_activity_statistic"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

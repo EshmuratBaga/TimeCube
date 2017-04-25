@@ -175,7 +175,7 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
         lifecycleHandler = LoaderLifecycleHandler.create(this,getSupportLoaderManager());
         presenter = new CubeSettingsPresenter(lifecycleHandler,this);
 
-        if (getIntent().getStringExtra(MAIN_TO_SET) == null){
+        if (isMain == null){
             Log.d("dddd","" + 123);
             presenter.checkDataCubeSide();
         }
@@ -217,7 +217,6 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
                         dialog.dismiss();
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 

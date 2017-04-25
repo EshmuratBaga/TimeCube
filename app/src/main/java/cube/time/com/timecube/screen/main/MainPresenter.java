@@ -1,15 +1,20 @@
 package cube.time.com.timecube.screen.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.st.BlueSTSDK.Feature;
 import com.st.BlueSTSDK.Node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 import cube.time.com.timecube.model.CubeSide;
 import cube.time.com.timecube.model.Time;
@@ -29,6 +34,12 @@ public class MainPresenter {
     private Time time;
     private CubeSideAdapter adapter;
     private RealmResults<CubeSide> cubeSides;
+    private int pCount;
+    private Handler handler = new Handler();
+    private Thread thread;
+    private Runnable runn;
+    private Runnable runn1;
+    ScheduledThreadPoolExecutor myTimer = new ScheduledThreadPoolExecutor(1);
 
     private Boolean exit = false;
 
@@ -88,5 +99,48 @@ public class MainPresenter {
 
     public void openSettingsActivity() {
         view.openSettingsActivity();
+    }
+
+    public void openStatisticActivity(){
+        view.openStatisticActivity();
+    }
+
+    public void startProgresBar(boolean pStatus, ProgressBar progressBar){
+        if (thread != null){
+            Log.d("dddd","thread is not null");
+            Log.d("dddd",""+thread.isAlive());
+            Log.d("dddd",""+thread.isInterrupted());
+            thread.interrupt();
+            thread = null;
+        }
+        Log.d("dddd","startProgress");
+        pCount = 0;
+        Log.d("dddd","first state pCount" + pCount);
+        progressBar.setProgress(0);
+
+        thread = new Thread(runn = new Runnable() {
+            @Override
+            public void run() {
+                while (pStatus && !Thread.currentThread().isInterrupted()) {
+                    if (pCount == 60) {
+                        pCount = 0;
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("dddd", "count" + pCount);
+                    handler.post(runn1 = new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setProgress(pCount);
+                        }
+                    });
+                    pCount++;
+                }
+            }
+        });
+        thread.start();
     }
 }

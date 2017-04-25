@@ -3,6 +3,7 @@ package cube.time.com.timecube.screen.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import cube.time.com.timecube.R;
 import cube.time.com.timecube.model.CubeSide;
 import cube.time.com.timecube.screen.scan.NodeContainerFragment;
 import cube.time.com.timecube.screen.settings_cube.CubeSettingsActivity;
+import cube.time.com.timecube.screen.statistic.StatisticActivity;
 import cube.time.com.timecube.utils.dialog.LoadingDialog;
 import cube.time.com.timecube.utils.dialog.LoadingView;
 import io.realm.Realm;
@@ -56,12 +59,15 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private MainPresenter presenter;
     private Realm realm;
     private CubeSide cubeSide;
+    private boolean pStatus;
 
     private Chronometer chronometer;
 
     private TextView txtTitleTask;
 
     private RecyclerView recyclerView;
+
+//    private ProgressBar progressBar;
 
     private int curent = 0;
     private int side;
@@ -140,9 +146,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("dddd","onStart");
+    protected void onResume() {
+        super.onResume();
+        Log.d("dddd","onResume");
         realm = Realm.getDefaultInstance();
         if (mNode.isConnected()) {
             populateFeatureList();
@@ -151,11 +157,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
             mNode.addNodeStateListener(mNodeStatusListener);
             Log.d("dddd","onResume else");
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
     }//onResume
 
@@ -191,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         chronometer = (Chronometer) findViewById(R.id.chrono);
         txtTitleTask = (TextView) findViewById(R.id.txt_task_title);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_tasks);
+//        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         presenter.initAdapter();
 
@@ -229,6 +231,12 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     @Override
+    public void openStatisticActivity() {
+        Intent intent = StatisticActivity.openStatisticActivity(this);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
@@ -239,7 +247,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
         int id = item.getItemId();
 
         if (id == R.id.menu_main_settings) {
-            presenter.openSettingsActivity();
+//            presenter.openSettingsActivity();
+            return true;
+        }
+        if (id == R.id.menu_main_statistic) {
+            presenter.openStatisticActivity();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -257,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         public void onUpdate(Feature f, final Feature.Sample sample) {
             final Number[] numXYZ =  f.getSample().data;
             MainActivity.this.runOnUiThread(() -> {
-
+                pStatus = true;
                 int sum = Math.round((numXYZ[0].floatValue()*1/988) + (numXYZ[1].floatValue()*2/988) + (numXYZ[2].floatValue()*3/988));
 
                 dx = (numXYZ[0].floatValue() - ax) / dt;
@@ -311,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                         cubeSide = realm.where(CubeSide.class).equalTo("side",sum).findFirst();
                         presenter.setEndTimeModel(side,recyclerView);
                         chronometer.setBase(SystemClock.elapsedRealtime());
+//                        presenter.startProgresBar(pStatus,progressBar);
                         chronometer.start();
                         presenter.setStratTimeModel(sum);
                         txtTitleTask.setText(cubeSide.getName());
@@ -321,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                         cubeSide = realm.where(CubeSide.class).equalTo("side",sum).findFirst();
                         presenter.setEndTimeModel(side, recyclerView);
                         chronometer.setBase(SystemClock.elapsedRealtime());
+//                        presenter.startProgresBar(pStatus,progressBar);
                         chronometer.start();
                         presenter.setStratTimeModel(sum);
                         txtTitleTask.setText(cubeSide.getName());
@@ -331,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                         cubeSide = realm.where(CubeSide.class).equalTo("side",sum).findFirst();
                         presenter.setEndTimeModel(side, recyclerView);
                         chronometer.setBase(SystemClock.elapsedRealtime());
+//                        presenter.startProgresBar(pStatus,progressBar);
                         chronometer.start();
                         presenter.setStratTimeModel(sum);
                         txtTitleTask.setText(cubeSide.getName());
@@ -341,6 +356,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                         cubeSide = realm.where(CubeSide.class).equalTo("side",sum).findFirst();
                         presenter.setEndTimeModel(side, recyclerView);
                         chronometer.setBase(SystemClock.elapsedRealtime());
+//                        presenter.startProgresBar(pStatus,progressBar);
                         chronometer.start();
                         presenter.setStratTimeModel(sum);
                         txtTitleTask.setText(cubeSide.getName());
@@ -351,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                         cubeSide = realm.where(CubeSide.class).equalTo("side",sum).findFirst();
                         presenter.setEndTimeModel(side, recyclerView);
                         chronometer.setBase(SystemClock.elapsedRealtime());
+//                        presenter.startProgresBar(pStatus,progressBar);
                         chronometer.start();
                         presenter.setStratTimeModel(sum);
                         txtTitleTask.setText(cubeSide.getName());
@@ -361,6 +378,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                         cubeSide = realm.where(CubeSide.class).equalTo("side",sum).findFirst();
                         presenter.setEndTimeModel(side, recyclerView);
                         chronometer.setBase(SystemClock.elapsedRealtime());
+//                        presenter.startProgresBar(pStatus,progressBar);
                         chronometer.start();
                         presenter.setStratTimeModel(sum);
                         txtTitleTask.setText(cubeSide.getName());

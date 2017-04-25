@@ -1,7 +1,10 @@
 package cube.time.com.timecube.screen.reg;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
+import cube.time.com.timecube.rest.ApiClient;
+import cube.time.com.timecube.rest.ApiInterface;
 import ru.arturvasilov.rxloader.LifecycleHandler;
 
 /**
@@ -9,11 +12,15 @@ import ru.arturvasilov.rxloader.LifecycleHandler;
  */
 
 public class SignUpPresenter {
-    private final LifecycleHandler mLifecycleHandler;
     private final SignUpView view;
+    private final Context context;
 
-    public SignUpPresenter(@NonNull LifecycleHandler mLifecycleHandler,@NonNull SignUpView view) {
-        this.mLifecycleHandler = mLifecycleHandler;
+    public SignUpPresenter(@NonNull SignUpView view, @NonNull Context context) {
         this.view = view;
+        this.context = context;
+    }
+
+    public void signUp(){
+        ApiInterface apiInterface = ApiClient.getApiInterface();
     }
 }

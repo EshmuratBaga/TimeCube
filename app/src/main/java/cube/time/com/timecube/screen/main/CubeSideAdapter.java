@@ -101,11 +101,6 @@ public class CubeSideAdapter extends RecyclerView.Adapter<CubeSideAdapter.CubeHo
         return cubeSides.size();
     }
 
-    public void refresh(List<CubeSide> datas){
-        cubeSides.clear();
-        notifyDataSetChanged();
-    }
-
     private int randomColor() {
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));

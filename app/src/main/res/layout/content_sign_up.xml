@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TimeCube"
+        android:text="@string/on_time"
         android:textColor="@android:color/white"
         android:textSize="55sp"
         android:fontFamily="sans-serif-smallcaps"
@@ -63,6 +63,20 @@
 
             <EditText
                 android:id="@+id/e_txt_sign_up_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:theme="@style/MyEditTextTheme"
+                android:textColorHint="@color/blue_er"/>
+
+        </cube.time.com.timecube.utils.CustomTextInputLayout>
+
+        <cube.time.com.timecube.utils.CustomTextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/e_txt_sign_up_password_repeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"

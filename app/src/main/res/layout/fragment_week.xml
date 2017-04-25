@@ -1,0 +1,12 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cube.time.com.timecube.screen.statistic.fragment.WeekFragment">
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bar_chart_week"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
