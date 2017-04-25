@@ -54,13 +54,20 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView,View
     }
 
     @Override
-    public void showLoading() {
+    public void openLoginActivity() {
+        Intent intent = new Intent(this,LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
+    @Override
+    public void showLoading() {
+        loadingView.showLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        loadingView.hideLoading();
     }
 
     @Override
@@ -71,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView,View
                 break;
             case R.id.btn_sign_up:
                 if (etxtPass.getText().toString().equals(etxtPass2.getText().toString())){
-                    presenter.signUp();
+                    presenter.signUp(etxtName.getText().toString(),etxtEmail.getText().toString(),etxtPass.getText().toString());
                 }else {
                     Toast.makeText(this,"Пароль не совпадает",Toast.LENGTH_SHORT).show();
                 }

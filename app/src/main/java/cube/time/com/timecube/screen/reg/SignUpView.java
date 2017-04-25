@@ -10,4 +10,5 @@ import cube.time.com.timecube.utils.dialog.LoadingView;
 public interface SignUpView extends LoadingView{
 
     void initWidget();
+    void openLoginActivity();
 }

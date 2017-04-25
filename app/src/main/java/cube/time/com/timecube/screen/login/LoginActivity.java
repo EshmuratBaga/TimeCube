@@ -8,12 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+
 import cube.time.com.timecube.R;
+import cube.time.com.timecube.model.Time;
 import cube.time.com.timecube.screen.reg.SignUpActivity;
 import cube.time.com.timecube.screen.scan.ScanActivity;
 import cube.time.com.timecube.screen.settings_cube.CubeSettingsActivity;
 import cube.time.com.timecube.utils.dialog.LoadingDialog;
 import cube.time.com.timecube.utils.dialog.LoadingView;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class LoginActivity extends AppCompatActivity implements LoginView,View.OnClickListener{
     private Button btnLogin;
@@ -28,6 +35,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initWidget();
+//
+//        RealmResults<Time> blackjackHand = realm.where(Time.class).findAll();
+//        Gson gson = new Gson();
+//        List<Time> times = realm.copyFromRealm(blackjackHand);
+//        String json = gson.toJson(times);
+//        System.out.println(json);
     }
 
     @Override
@@ -66,7 +79,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
                 startActivity(new Intent(this, SignUpActivity.class));
                 break;
             case R.id.btn_sign_in:
-                presenter.checkUser(etxtLogin.getText().toString(),etxtPass.getText().toString());
+//                presenter.checkUser(etxtLogin.getText().toString(),etxtPass.getText().toString());
+                startActivity(new Intent(this, ScanActivity.class));
                 break;
         }
     }

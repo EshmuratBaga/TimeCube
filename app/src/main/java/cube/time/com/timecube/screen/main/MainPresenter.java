@@ -106,22 +106,14 @@ public class MainPresenter {
     }
 
     public void startProgresBar(boolean pStatus, ProgressBar progressBar){
-        if (thread != null){
-            Log.d("dddd","thread is not null");
-            Log.d("dddd",""+thread.isAlive());
-            Log.d("dddd",""+thread.isInterrupted());
-            thread.interrupt();
-            thread = null;
-        }
-        Log.d("dddd","startProgress");
-        pCount = 0;
-        Log.d("dddd","first state pCount" + pCount);
-        progressBar.setProgress(0);
 
-        thread = new Thread(runn = new Runnable() {
+        pCount = 0;
+        progressBar.setProgress(59);
+
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                while (pStatus && !Thread.currentThread().isInterrupted()) {
+                while (pStatus) {
                     if (pCount == 60) {
                         pCount = 0;
                     }
@@ -131,7 +123,7 @@ public class MainPresenter {
                         e.printStackTrace();
                     }
                     Log.d("dddd", "count" + pCount);
-                    handler.post(runn1 = new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             progressBar.setProgress(pCount);
@@ -140,7 +132,37 @@ public class MainPresenter {
                     pCount++;
                 }
             }
-        });
-        thread.start();
+        };
+
+        if (thread != null){
+            thread = Thread.currentThread();
+        }else {
+            thread = new Thread(runnable);
+            thread.start();
+        }
+
+// {
+//            @Override
+//            public void run() {
+//                while (pStatus) {
+//                    if (pCount == 60) {
+//                        pCount = 0;
+//                    }
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Log.d("dddd", "count" + pCount);
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            progressBar.setProgress(pCount);
+//                        }
+//                    });
+//                    pCount++;
+//                }
+//            }
+//        });
     }
 }
