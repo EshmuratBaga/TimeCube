@@ -148,14 +148,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("dddd","onResume");
         realm = Realm.getDefaultInstance();
         if (mNode.isConnected()) {
             populateFeatureList();
-            Log.d("dddd","onResume if");
         } else{
             mNode.addNodeStateListener(mNodeStatusListener);
-            Log.d("dddd","onResume else");
         }
 
     }//onResume
@@ -164,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     protected void onPause() {
         //it is safe remove also if we didn't add it
         mNode.removeNodeStateListener(mNodeStatusListener);
-        //if the node is already disconnected we don't care of disable the notification
+//        if the node is already disconnected we don't care of disable the notification
         if (mNode.isConnected()) {
             presenter.disableNeedNotification(mNode);
         }//if
@@ -174,8 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     protected void onStop() {
         super.onStop();
-
-        Log.d("dddd","onStop");
+        realm.close();
     }
 
     @Override
@@ -247,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         int id = item.getItemId();
 
         if (id == R.id.menu_main_settings) {
-//            presenter.openSettingsActivity();
+            presenter.openSettingsActivity();
             return true;
         }
         if (id == R.id.menu_main_statistic) {

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,14 +23,10 @@ import com.st.BlueSTSDK.Node;
 import java.util.List;
 
 import cube.time.com.timecube.R;
-import cube.time.com.timecube.model.CubeSide;
-import cube.time.com.timecube.screen.bottom.TimeActivity;
 import cube.time.com.timecube.screen.main.MainActivity;
 import cube.time.com.timecube.screen.scan.NodeContainerFragment;
 import cube.time.com.timecube.utils.dialog.LoadingDialog;
 import cube.time.com.timecube.utils.dialog.LoadingView;
-import io.realm.Realm;
-import io.realm.RealmResults;
 import ru.arturvasilov.rxloader.LifecycleHandler;
 import ru.arturvasilov.rxloader.LoaderLifecycleHandler;
 
@@ -74,8 +71,8 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
     private RadioGroup rgrType;
     private RadioButton rBtnCube;
     private RadioButton rBtnOkta;
-
     private RadioButton rBtnDode;
+    private Button btnOk;
 
     private int curent = 0;
 
@@ -184,10 +181,12 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
         rBtnCube = (RadioButton) findViewById(R.id.rbtn_cube);
         rBtnOkta = (RadioButton) findViewById(R.id.rbtn_okta);
         rBtnDode = (RadioButton) findViewById(R.id.rbtn_dode);
+        btnOk = (Button) findViewById(R.id.btn_setting_cube);
 
         rBtnCube.setOnClickListener(this);
         rBtnOkta.setOnClickListener(this);
         rBtnDode.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     @Override
@@ -250,6 +249,9 @@ public class CubeSettingsActivity extends AppCompatActivity implements CubeView,
                 rBtnOkta.setChecked(false);
                 rBtnDode.setChecked(true);
                 presenter.chooseType();
+                break;
+            case R.id.btn_setting_cube:
+                presenter.openMainActivity();
                 break;
         }
     }

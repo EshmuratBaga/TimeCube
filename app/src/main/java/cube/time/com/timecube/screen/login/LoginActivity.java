@@ -59,7 +59,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
 
     @Override
     public void openScanActivity() {
-        startActivity(new Intent(this, ScanActivity.class));
+        Intent intent = new Intent(this, ScanActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(intent);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView,View.O
                 break;
             case R.id.btn_sign_in:
 //                presenter.checkUser(etxtLogin.getText().toString(),etxtPass.getText().toString());
-                startActivity(new Intent(this, ScanActivity.class));
+                openScanActivity();
                 break;
         }
     }

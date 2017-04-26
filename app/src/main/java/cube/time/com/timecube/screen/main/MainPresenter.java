@@ -108,17 +108,17 @@ public class MainPresenter {
     public void startProgresBar(boolean pStatus, ProgressBar progressBar){
 
         pCount = 0;
-        progressBar.setProgress(59);
+        progressBar.setProgress(599);
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 while (pStatus) {
-                    if (pCount == 60) {
+                    if (pCount == 600) {
                         pCount = 0;
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -140,29 +140,5 @@ public class MainPresenter {
             thread = new Thread(runnable);
             thread.start();
         }
-
-// {
-//            @Override
-//            public void run() {
-//                while (pStatus) {
-//                    if (pCount == 60) {
-//                        pCount = 0;
-//                    }
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    Log.d("dddd", "count" + pCount);
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            progressBar.setProgress(pCount);
-//                        }
-//                    });
-//                    pCount++;
-//                }
-//            }
-//        });
     }
 }

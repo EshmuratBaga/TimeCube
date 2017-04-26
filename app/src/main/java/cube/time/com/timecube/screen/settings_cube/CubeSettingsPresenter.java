@@ -47,4 +47,8 @@ public class CubeSettingsPresenter {
             view.openMainActivity();
         }
     }
+
+    public void openMainActivity(){
+        view.openMainActivity();
+    }
 }
